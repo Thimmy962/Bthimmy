@@ -1,6 +1,18 @@
 from flask import Flask, render_template, jsonify
+from datetime import datetime
+
+current_year = datetime.now().year
 
 app = Flask(__name__)
+
+@app.context_processor
+def custom_context():
+    # Add custom data to the context
+    return {
+        'company': 'Thimmy',
+        'year': current_year,
+    }
+
 
 JOBS = [
     {

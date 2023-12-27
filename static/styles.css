@@ -2,4 +2,24 @@
     width: 100%;
     height: 360px;
     object-fit: cover;
+    margin-bottom: 20px;
+}
+
+
+@media (max-width: 995px) {
+    .row.hmpg-fr-div {
+        display: flex; /* Change to flex container */
+        flex-direction: column; /* Stack items vertically */
+    }
+
+    /* Adjust styling for the child elements as needed for smaller screens */
+    .row.hmpg-fr-div .col-3,
+    .row.hmpg-fr-div .col-9 {
+        width: 100%; /* Make the columns take full width */
+    }
+}
+
+.row img{
+    max-height: 406px;
+    object-fit: cover;
 }

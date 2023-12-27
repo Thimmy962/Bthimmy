@@ -5,16 +5,19 @@
 {%endblock%}
 
 {%block content%}
+        <img src="static/carimgbg.jpg" alt="Hello" width="200px" height="200px" id="banner" class="img-fluid">
+        <h1 class="text-center mt-2 mb-4">{{company}} Cars</h1>
     <div class="container">
-        <h1 class="text-center mt-2 mb-2">Thimmy Careers</h1>
-        <img src="../static/Mercedes-Benz-Free-PNG-Image.png" alt="Hello" width="200px" height="200px" id="banner" class="img-fluid">
         
-        <h1 class="text-center mt-2 mb-4">About Thimmy</h1>
-        <p class="lead">Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, 
-            consectetur adipiscing elit. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.
-            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
-            Donec velit neque
-        </p>
+       <div class="row hmpg-fr-div">
+            <p class="lead col-3">
+                Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, 
+                consectetur adipiscing elit. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.
+                Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+                Donec velit neque
+            </p>
+            <img src="static/people-working.jpg" alt="" class="col-9">
+       </div>
         <h2 class="text-center mt-2 mb-4">Job Openings</h2>
         <div>
             {%for job in jobs%}
@@ -22,8 +25,7 @@
             {%endfor%}
         </div>
         <div style="text-align: center;" class="text-center">
-            <button class="btn btn-primary btn-lg">Contact Us</button>
-            <p>Copyright 2023, Thimmy</p>
+            <button class="btn btn-outline-primary btn-sm">Contact Us</button>
         </div>
     </div>
 {%endblock%}
