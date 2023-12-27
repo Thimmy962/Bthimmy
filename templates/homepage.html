@@ -1,0 +1,29 @@
+{%extends 'base.html'%}
+
+{%block title%}
+    Thimmy Careers
+{%endblock%}
+
+{%block content%}
+    <div class="container">
+        <h1 class="text-center mt-2 mb-2">Thimmy Careers</h1>
+        <img src="../static/Mercedes-Benz-Free-PNG-Image.png" alt="Hello" width="200px" height="200px" id="banner" class="img-fluid">
+        
+        <h1 class="text-center mt-2 mb-4">About Thimmy</h1>
+        <p class="lead">Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, 
+            consectetur adipiscing elit. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.
+            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+            Donec velit neque
+        </p>
+        <h2 class="text-center mt-2 mb-4">Open Positions</h2>
+        <div>
+            {%for job in jobs%}
+                {% include 'jobitem.html' %}
+            {%endfor%}
+        </div>
+        <div style="text-align: center;" class="text-center">
+            <button class="btn btn-primary btn-lg">Contact Us</button>
+            <p>Copyright 2023, Thimmy</p>
+        </div>
+    </div>
+{%endblock%}
