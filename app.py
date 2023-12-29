@@ -1,7 +1,7 @@
 from sqlalchemy.orm.exc import NoResultFound
 from flask import Flask, render_template, request, redirect, url_for
 from flask_migrate import Migrate
-from flask_login import LoginManager, UserMixin, login_user, current_user, login_required, logout_user
+from flask_login import LoginManager, login_user, current_user, login_required, logout_user
 from datetime import datetime
 import secrets
 from models import db, User, Car
@@ -10,7 +10,15 @@ current_year = datetime.now().year
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://thimmy:Uydnv1$1@localhost/thimmy_car?charset=utf8mb4'
+# Configurations
+
+username = "thimmy"
+password = "Uydnv1$1"
+host = "localhost"
+db_name = "thimmy_car"
+
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{username}:{password}@{host}/{db_name}?charset=utf8mb4'
+
 app.config['SECRET_KEY'] = secrets.token_hex(16)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
@@ -29,12 +37,16 @@ def load_user(user_id):
 
 
 
+# Functions
+
 @app.context_processor
 def custom_context():
     return {
         'company': 'Bthimmy',
         'year': current_year,
     }
+
+
 
 @app.route("/")
 def home():
@@ -43,6 +55,11 @@ def home():
     return render_template('homepage.html', cars=cars)
 
 
+@app.route("/list")
+def list():
+    page = request.args.get('page', 1, type=int)
+    cars = Car.query.paginate(page=page, per_page= 2)
+    return render_template('list.html', cars = cars)
 
 
 
@@ -54,12 +71,74 @@ def details(car_id):
             raise NoResultFound
     except NoResultFound:
         return redirect(url_for('home'))
-
-    print("Hello")
-    print(car)
-    print("Hello")
     return render_template("detail.html", car=car)
 
+
+
+@app.route('/edit/<car_id>', methods = ['POST', 'GET'])
+@login_required
+def edit(car_id):
+    try:
+            car = Car.query.filter_by(id=car_id).first()
+            if not car:
+                raise NoResultFound
+                return redirect(url_for('admin'))
+    except NoResultFound:
+            return redirect(url_for('admin'))
+
+    if request.method == 'GET':
+        return render_template('edit.html', car = car)
+    else:
+        name = request.form['name']
+        color = request.form['color']
+        make = request.form['make']
+        year = request.form['year']
+        price = request.form['price']
+
+        car.name = name
+        car.color = color
+        car.make = make
+        car.year = year
+        car.price = price
+
+        db.session.commit()
+
+        return redirect(url_for('details', car_id = car_id))
+        
+
+
+@app.route('/newcar', methods = ['POST', 'GET'])
+@login_required
+def newcar():
+    if request.method == 'GET':
+        return render_template('new-car.html')
+    else:
+        name = request.form['name']
+        color = request.form['color']
+        make = request.form['make']
+        year = request.form['year']
+        price = request.form['price']
+        
+        new_car = Car(name = name.title(), color = color.title(), make = make.title(), year = year, price = price)
+        db.session.add(new_car)
+        db.session.commit()
+        return render_template(url_for('admin'))
+
+
+
+@app.route('/delete/<car_id>')
+@login_required
+def delete(car_id):
+        try:
+            car = Car.query.filter_by(id=car_id).first()
+            if not car:
+                raise NoResultFound
+        except NoResultFound:
+            return redirect(url_for('home'))
+        
+        db.session.delete(car)
+        db.session.commit()
+        return redirect(url_for("admin"))
 
 
 
@@ -78,14 +157,12 @@ def login():
             return render_template('login.html', message='User Does Not Exist')
 
         elif not user.check_password(password):
-            return render_template('login.html', message='Password is wrong')
+            return render_template('login.html', message='Password Does  not Match')
 
         else:
             login_user(user)
             # next = request.args.get('next')
             return redirect(url_for('admin'))
-
-            
 
 
 
@@ -138,7 +215,12 @@ def register():
 @app.route("/admin")
 @login_required
 def admin():
-    return render_template('admin.html', cars = Car.query.all())
+    
+    page = request.args.get('page', 1, type=int)
+
+    cars = Car.query.paginate(page=page, per_page= 2)
+
+    return render_template('admin.html', cars = cars)
 
 
 if __name__ == '__main__':
