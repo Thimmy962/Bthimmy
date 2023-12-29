@@ -1,0 +1,26 @@
+{%extends 'base.html'%}
+
+
+{%block title%}
+    Log-In
+{%endblock%}
+
+{%block content%}
+            {% if message %}
+            <div style="z-index: 1; text-align: center; color: red;">{{message}}</div>
+            {%endif%}
+            <div class="form">
+                <form action="" method="post">
+                    <div class="username input">
+                        <input type="text" name="username" id="" placeholder="Username" required autofocus>
+                    </div>
+                    <div class="password input">
+                        <input type="password" name="password" id="" required placeholder="Password">
+                    </div>
+                    
+                    <div class="login-div">
+                        <input type="submit" value="Login" class="btn btn-outline-secondary btn-small login">
+                    </div>
+                </form>
+            </div>
+{%endblock%}

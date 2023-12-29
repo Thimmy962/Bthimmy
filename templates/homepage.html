@@ -1,14 +1,15 @@
 {%extends 'base.html'%}
 
 {%block title%}
-    Thimmy Careers
+    Homepage
 {%endblock%}
 
 {%block content%}
-        <img src="static/carimgbg.jpg" alt="Hello" width="200px" height="200px" id="banner" class="img-fluid">
+        <div class="img-div">
+            <img src="static/carimgbg.jpg" alt="Hello" id="banner" class="img-fluid">
+        </div>
         <h1 class="text-center mt-2 mb-4">{{company}} Cars</h1>
-    <div class="container">
-        
+    <div class="container">  
        <div class="row hmpg-fr-div">
             <p class="lead col-3">
                 Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, 
@@ -18,15 +19,15 @@
             </p>
             <img src="static/people-working.jpg" alt="" class="col-9">
        </div>
-        <h2 class="text-center mt-2 mb-4">Job Openings</h2>
-        <div>
-            {%for job in jobs%}
-                {% include 'jobitem.html' %}
+        <h2 class="text-center mt-2 mb-4">New Inventory</h2>
+        <div class="hmpg-list">
+            {%for car in cars %}
+                {% include 'caritem.html' %}
             {%endfor%}
         </div>
         <div style="text-align: center;" class="text-center">
             <a href="mailto:oluwatimileyin962@gmail.com?subject=Contact%20About%20Job%20Opening&body=Name%3A%20%3C
-            Your%20name%20here%3E%0D%0AYour%20question%3A%20%3CYour%20Question%3E" type="button" class="btn btn-outline-secondary btn-sm">Contact Us</a>
+            Your%20name%20here%3E%0D%0AYour%20question%3A%20%3CYour%20Question%3E"  class="btn btn-outline-secondary btn-sm">Contact Us</a>
         </div>
     </div>
 {%endblock%}

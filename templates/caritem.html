@@ -1,0 +1,20 @@
+<div class="row" style="margin-bottom: 16px; padding-bottom: 8px;">
+    <div class="col-8">
+        <h4 style="margin: 0;">{{car.name}}</h4>
+        <p style="margin: 0;">Color: {{car.color}}</p>
+        {% if car.price %} <p style="margin: 0;">Price: &#8358;{{car.price}}</p> {%endif%}
+    </div>
+    
+    {%if current_user.is_authenticated%}
+        <div class="col-4">
+            <a href="{{url_for('details', car_id = car.id)}}" 
+            type="button" class="btn btn-outline-secondary btn-md">View Details</a>
+        </div>
+
+    {%else%}
+        <div class="col-4">
+            <a href="{{url_for('details', car_id = car.id)}}" 
+            type="button" class="btn btn-outline-secondary btn-md">View Details</a>
+        </div>
+    {%endif%}
+</div>

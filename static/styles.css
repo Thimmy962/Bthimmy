@@ -1,25 +1,112 @@
+/* Homepage */
 #banner{
     width: 100%;
-    height: 360px;
     object-fit: cover;
-    margin-bottom: 20px;
+    height: 300px;
+    transform: scale(1);
 }
 
 
 @media (max-width: 995px) {
     .row.hmpg-fr-div {
-        display: flex; /* Change to flex container */
-        flex-direction: column; /* Stack items vertically */
+        display: flex;
+        flex-direction: column;
     }
 
-    /* Adjust styling for the child elements as needed for smaller screens */
     .row.hmpg-fr-div .col-3,
     .row.hmpg-fr-div .col-9 {
-        width: 100%; /* Make the columns take full width */
+        width: 100%;
+    }
+
+    .text-center{
+        margin-top: 20px;
     }
 }
 
 .row img{
-    max-height: 406px;
+    height: 406px;
     object-fit: cover;
 }
+
+button.navbar-toggle:focus{
+    box-shadow: none !important;
+}
+
+.hmpg-list{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 400px));
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.move-top{
+    width: 100px;
+    height: 25px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: grey;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    color: white;
+}
+
+/* Login Page */
+.form{
+    width: 300px;
+    margin: 50px auto 50px;
+}
+
+.form > form{
+    border: 1px solid grey;
+    height:200px;
+    border-radius: 10px;
+    width: 100%;
+    gap: 40px;
+    padding: 20px 0;
+}
+
+.form > form.register{
+    border: 1px solid grey;
+    height:350px;
+    border-radius: 10px;
+    width: 100%;
+    gap: 40px;
+    padding: 20px 0;
+}
+
+.input{
+    width: 100%;
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+}
+
+.input > *{
+    height: 35px;
+    border-radius: 20px;
+    border: .5px solid rgb(210, 202, 202);
+    padding-left: 20px;
+    color: grey;
+}
+
+input:focus{
+    outline: none;
+}
+
+.login-div{
+    margin: auto;
+    width: 100px;
+}
+
+/* Adminpage */
+.admin-car{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 400px));
+    justify-content: center;
+    background-color: yellow;
+}
+
